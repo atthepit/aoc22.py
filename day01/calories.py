@@ -7,9 +7,14 @@ def get_top_three_calories(calories_by_elf: str) -> int:
 
 
 def get_top_calories(calories_by_elf: str, how_many=1) -> int:
+    # Split the list of calories by elf
     elves = calories_by_elf.split("\n\n")
-    calories_by_elf = [elf.splitlines() for elf in elves]
-    total_calories = [sum([int(item) for item in elf])
-                      for elf in calories_by_elf]
+    # Create a list of calories for each elf
+    calories_by_elf = [[int(calorie)
+                        for calorie in elf.splitlines()] for elf in elves]
+    # get the total of calories for each elf
+    total_calories = [sum(calories) for calories in calories_by_elf]
+    # sort the array of total calories
     sorted_calories = sorted(total_calories)
-    return sum(sorted_calories[how_many * -1:])
+    # get the top (last) n values
+    return sum(sorted_calories[-how_many:])
