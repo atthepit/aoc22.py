@@ -1,43 +1,50 @@
-MOVES = {
-    'A': 'r',  # r => rock
-    'B': 'p',  # p => paper
-    'C': 's',  # s => scissors
-    'X': 'r',
-    'Y': 'p',
-    'Z': 's',
+SCORES_BY_MOVE = {
+    'X': 1,  # rock
+    'Y': 2,  # paper
+    'Z': 3,  # scissors
 }
 
-WIN_TABLE = {
-    'r': 's',  # rock beats scissors
-    'p': 'r',  # paper beats rock
-    's': 'p',  # scissors beats paper
+SCORE_BY_ROUND_V1 = {
+    'A X': 3,
+    'A Y': 0,
+    'A Z': 6,
+    'B X': 6,
+    'B Y': 3,
+    'B Z': 0,
+    'C X': 0,
+    'C Y': 6,
+    'C Z': 3,
 }
 
-SCORES = {
-    # Scores based on my pick
-    'r': 1,
-    'p': 2,
-    's': 3,
-    # Scores based on outcome
-    'lose': 0,
-    'draw': 3,
-    'win': 6,
+SCORES_BY_OUTCOME = {
+    'X': 0,  # lose
+    'Y': 3,  # draw
+    'Z': 6,  # win
+}
+
+SCORES_BY_ROUND_V2 = {
+    'A X': 3,
+    'A Y': 1,
+    'A Z': 2,
+    'B X': 1,
+    'B Y': 2,
+    'B Z': 3,
+    'C X': 2,
+    'C Y': 3,
+    'C Z': 1,
 }
 
 
-def get_score(strategy: str) -> int:
-    total = 0
+def get_score(strategy: str, round_scores: dict, action_scores: dict) -> int:
+    return sum([
+        action_scores[round[2]] + round_scores[round]
+        for round in strategy.splitlines()
+    ])
 
-    for round in strategy.splitlines():
-        adversary, me = round.split(' ')
-        adversary_move = MOVES[adversary]
-        my_move = MOVES[me]
-        total += SCORES[my_move]
-        if adversary_move == my_move:
-            total += SCORES["draw"]
-        elif WIN_TABLE[my_move] == adversary_move:
-            total += SCORES['win']
-        else:
-            total += SCORES['lose']  # Not needed but for clarity
 
-    return total
+def get_score_v1(strategy: str) -> int:
+    return get_score(strategy, SCORE_BY_ROUND_V1, SCORES_BY_MOVE)
+
+
+def get_score_v2(strategy: str) -> int:
+    return get_score(strategy, SCORES_BY_ROUND_V2, SCORES_BY_OUTCOME)
