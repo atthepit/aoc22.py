@@ -11,3 +11,8 @@ https://blog.thepit.space/re-learning-python-the-fun-way
 
 Solution explained:
 https://blog.thepit.space/advent-of-code-with-python-day-2
+
+## Day 03
+
+Solution explained:
+https://blog.thepit.space/advent-of-code-with-python-day-3
