@@ -16,3 +16,7 @@ https://blog.thepit.space/advent-of-code-with-python-day-2
 
 Solution explained:
 https://blog.thepit.space/advent-of-code-with-python-day-3
+
+## Day 04
+
+No blog post from here :)
